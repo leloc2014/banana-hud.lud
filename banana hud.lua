@@ -12,12 +12,11 @@ local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
 getgenv().Config = {
-    FastAttack = false,
+    FastAttack = true,
     AttackDelay = 0.04,
-    HitboxSize = 60,
-    AutoHaki = false,
+    HitboxSize = 50,
+    AutoHaki =true,
     UseSkills = true,
-    
     AutoFarm = false,
     AutoQuest = false,
     BringMob = false,
@@ -26,56 +25,35 @@ getgenv().Config = {
     AutoEquip = true,
     Weapon = "Melee",
     AutoChest = false,
-    
     AutoRaid = false,
     SelectedChip = "Flame",
     AutoFactory = false,
     AutoSeaBeast = false,
-    
     AutoSeaEvent = false,
     AutoKitsune = false,
     AutoLeviathan = false,
     AutoVolcanic = false,
     BoatSpeed = 300,
-    
     AutoV4 = false,
     AutoTryV4 = false,
     NoFog = false,
-    
     AutoCDK = false,
     AutoSoulGuitar = false,
     AutoSharkAnchor = false,
     AutoHallowScythe = false,
     AutoMastery600 = false,
-    AutoYamaTushita = false,
-    AutoRainbowHaki = false,
-    AutoSogita = false,
-    AutoAutoChestHop = false,
-    AutoBountyHunter = false,
-    
-    AutoObsV2 = false,
-    AutoBuyLegendaryHaki = false,
-    
     AutoStats = false,
     StatTarget = "Melee",
-    
     WalkSpeedBoost = false,
     SpeedValue = 100,
     JumpPowerBoost = false,
     JumpValue = 100,
     InfiniteJump = false,
     NoClip = false,
-    
     PlayerESP = false,
     ItemESP = false,
     MobESP = false,
-    IslandESP = false,
-    FruitNotifier = false,
-    
     FPSBooster = false,
-    DisableTextures = false,
-    WhiteScreen = false,
-    
     SelectedIsland = "Floating Turtle",
     TweenSpeed = 300
 }
@@ -83,41 +61,6 @@ getgenv().Config = {
 local QuestState = {
     CurrentMobName = "",
     CurrentMobCFrame = nil
-}
-
-local IslandLocations = {
-    ["Starter Island"] = CFrame.new(1059, 15, 1550),
-    ["Jungle"] = CFrame.new(-1598, 35, 153),
-    ["Pirate Village"] = CFrame.new(-1145, 15, 3825),
-    ["Desert"] = CFrame.new(935, 7, 4375),
-    ["Frozen Village"] = CFrame.new(1140, 25, -1180),
-    ["Marineford"] = CFrame.new(-4500, 20, 4260),
-    ["Sky Island"] = CFrame.new(-4840, 717, -2620),
-    ["Prison"] = CFrame.new(4875, 5, 735),
-    ["Colosseum"] = CFrame.new(-1255, 7, 3275),
-    ["Magma Village"] = CFrame.new(-5315, 12, 8515),
-    ["Underwater City"] = CFrame.new(61125, 18, 1565),
-    ["Fountain City"] = CFrame.new(5125, 60, 4050),
-    ["Kingdom of Rose"] = CFrame.new(-395, 75, 275),
-    ["Café"] = CFrame.new(-385, 75, 175),
-    ["Graveyard"] = CFrame.new(-5450, 15, -7950),
-    ["Snow Mountain"] = CFrame.new(655, 400, -5250),
-    ["Hot and Cold"] = CFrame.new(-6015, 15, -5100),
-    ["Cursed Ship"] = CFrame.new(920, 125, 32800),
-    ["Ice Castle"] = CFrame.new(6170, 290, -6850),
-    ["Forgotten Island"] = CFrame.new(-3040, 315, -10250),
-    ["Port Town"] = CFrame.new(-290, 15, 5360),
-    ["Hydra Island"] = CFrame.new(5245, 605, 755),
-    ["Dragon Dojo"] = CFrame.new(5660, 1205, 860),
-    ["Great Tree"] = CFrame.new(2300, 30, -6800),
-    ["Floating Turtle"] = CFrame.new(-12450, 330, -8750),
-    ["Castle on the Sea"] = CFrame.new(-5085, 315, -3155),
-    ["Haunted Castle"] = CFrame.new(-9515, 145, 5785),
-    ["Sea of Treats"] = CFrame.new(-2025, 50, -12150),
-    ["Tiki Outpost"] = CFrame.new(-16540, 55, 1050),
-    ["Hungry Man"] = CFrame.new(-11993, 336, -8840),
-    ["Master of Enhancement"] = CFrame.new(511, 45, 1785),
-    ["Clock/Trial Room"] = CFrame.new(28200, 14200, 10500)
 }
 
 local QuestDatabase = {
@@ -291,16 +234,6 @@ local function EquipWeapon(toolType)
     end
 end
 
-local function CastSkills()
-    if not getgenv().Config.UseSkills then return end
-    local keys = {Enum.KeyCode.Z, Enum.KeyCode.X, Enum.KeyCode.C}
-    for _, key in ipairs(keys) do
-        VirtualInputManager:SendKeyEvent(true, key, false, game)
-        task.wait(0.05)
-        VirtualInputManager:SendKeyEvent(false, key, false, game)
-    end
-end
-
 task.spawn(function()
     while true do
         pcall(function()
@@ -443,59 +376,34 @@ task.spawn(function()
     end
 end)
 
--- GIAO DIỆN NGƯỜI DÙNG (UI)
-if PlayerGui:FindFirstChild("BananaHubCompleteUI") then
-    PlayerGui.BananaHubCompleteUI:Destroy()
+if PlayerGui:FindFirstChild("BananaHubUltimate") then
+    PlayerGui.BananaHubUltimate:Destroy()
 end
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "BananaHubCompleteUI"
+ScreenGui.Name = "BananaHubUltimate"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.Parent = PlayerGui
 
-local ToggleButton = Instance.new("ImageButton")
-ToggleButton.Size = UDim2.new(0, 52, 0, 52)
-ToggleButton.Position = UDim2.new(0.04, 0, 0.15, 0)
-ToggleButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-ToggleButton.Image = "rbxassetid://6031075931"
+local ToggleButton = Instance.new("TextButton")
+ToggleButton.Size = UDim2.new(0, 45, 0, 45)
+ToggleButton.Position = UDim2.new(0.05, 0, 0.18, 0)
+ToggleButton.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+ToggleButton.Text = "🍌"
+ToggleButton.TextSize = 24
 ToggleButton.Parent = ScreenGui
 ToggleButton.Active = true
 ToggleButton.Draggable = true
 Instance.new("UICorner", ToggleButton).CornerRadius = UDim.new(1, 0)
+
 local ToggleStroke = Instance.new("UIStroke", ToggleButton)
 ToggleStroke.Color = Color3.fromRGB(255, 215, 0)
 ToggleStroke.Thickness = 2
 
-local AutoFarmTouchBtn = Instance.new("TextButton")
-AutoFarmTouchBtn.Size = UDim2.new(0, 95, 0, 36)
-AutoFarmTouchBtn.Position = UDim2.new(0.85, -100, 0.22, 0)
-AutoFarmTouchBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-AutoFarmTouchBtn.Text = "Farm: OFF"
-AutoFarmTouchBtn.TextColor3 = Color3.fromRGB(180, 180, 180)
-AutoFarmTouchBtn.Font = Enum.Font.GothamBold
-AutoFarmTouchBtn.TextSize = 11
-AutoFarmTouchBtn.Active = true
-AutoFarmTouchBtn.Draggable = true
-AutoFarmTouchBtn.Parent = ScreenGui
-Instance.new("UICorner", AutoFarmTouchBtn).CornerRadius = UDim.new(0, 6)
-
-AutoFarmTouchBtn.MouseButton1Click:Connect(function()
-    getgenv().Config.AutoFarm = not getgenv().Config.AutoFarm
-    if getgenv().Config.AutoFarm then
-        AutoFarmTouchBtn.BackgroundColor3 = Color3.fromRGB(255, 215, 0)
-        AutoFarmTouchBtn.TextColor3 = Color3.fromRGB(15, 15, 15)
-        AutoFarmTouchBtn.Text = "Farm: ON"
-    else
-        AutoFarmTouchBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-        AutoFarmTouchBtn.TextColor3 = Color3.fromRGB(180, 180, 180)
-        AutoFarmTouchBtn.Text = "Farm: OFF"
-    end
-end)
-
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 520, 0, 320)
-MainFrame.Position = UDim2.new(0.5, -260, 0.5, -160)
-MainFrame.BackgroundColor3 = Color3.fromRGB(14, 14, 14)
+MainFrame.Size = UDim2.new(0, 520, 0, 360)
+MainFrame.Position = UDim2.new(0.5, -260, 0.5, -180)
+MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 MainFrame.BorderSizePixel = 0
 MainFrame.Active = true
 MainFrame.Draggable = true
@@ -507,20 +415,20 @@ MainStroke.Color = Color3.fromRGB(255, 215, 0)
 MainStroke.Thickness = 2
 
 local TopBar = Instance.new("Frame")
-TopBar.Size = UDim2.new(1, 0, 0, 38)
-TopBar.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+TopBar.Size = UDim2.new(1, 0, 0, 40)
+TopBar.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
 TopBar.BorderSizePixel = 0
 TopBar.Parent = MainFrame
 Instance.new("UICorner", TopBar).CornerRadius = UDim.new(0, 8)
 
 local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(1, -40, 1, 0)
+Title.Size = UDim2.new(1, -20, 1, 0)
 Title.Position = UDim2.new(0, 15, 0, 0)
 Title.BackgroundTransparency = 1
-Title.Text = "BANANA HUB | LUA SCRIPT"
+Title.Text = "BANANA HUB | ULTIMATE EDITION"
 Title.TextColor3 = Color3.fromRGB(255, 215, 0)
 Title.Font = Enum.Font.GothamBold
-Title.TextSize = 12
+Title.TextSize = 14
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.Parent = TopBar
 
